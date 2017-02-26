@@ -1,4 +1,5 @@
+# frozen_string_literal: true
 class WorkoutSet < ApplicationRecord
-  belongs_to :exercise, inverse_of: :sets
-  belongs_to :segment, inverse_of: :set
+  self.table_name = 'sets'
+  belongs_to :strength_exercise
 end

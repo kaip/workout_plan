@@ -26,6 +26,7 @@ PreCommit:
   Reek:
     enabled: true
     problem_on_unmodified_line: warn
+    exclude: db/migrate/*.rb
   TravisLint:
     enabled: true
   BundleCheck:
