@@ -1,1 +1,17 @@
 <%= link_to 'New workout', new_workouts_path %>
+<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Cardio</th>
+    <th>Strength</th>
+  </tr>
+
+  <% @workouts.each do |workout| %>
+  <tr>
+    <th><%= workout.date %></th>
+    <th><%= workout.cardio_exercises.to_a.map(&:to_s).join(' ') %></th>
+    <th><%= workout.strength_exercises.to_a.map(&:to_s).join(' ') %></th>
+  </tr>
+  <% end %>
+</table>

@@ -1,7 +1,7 @@
 <h1>Rebel Workout Plan</h1>
 <%= form_for @workout do |f| %>
-  <%= label_tag(:q, "Date:") %>
-  <%= date_field(@workout, :exercised_at) %>
+  <%= f.label :workout_date %>
+  <%= f.date_field :date %>
   <h3>Cardio:</h3>
   <% @workout.cardio_exercises.each do |cardio| %>
     <%= f.fields_for cardio do |cardio_form| %>
@@ -17,9 +17,15 @@
     <%= f.fields_for strength do |strength_form| %>
       <%= strength_form.label :exercise %>
       <%= strength_form.text_field :exercise %>
-      Sets:
+      <br>
       <% strength.sets.each do |set| %>
-        <%= text_area_tag(set) %>
+        <%= strength_form.fields_for set do |set_form| %>
+          <%= set_form.label :weight %>
+          <%= set_form.text_field :weight %>
+          <%= set_form.label :reps %>
+          <%= set_form.number_field :reps %>
+        <% end %>
+        <br>
       <% end %>
     <% end %>
     <br>
