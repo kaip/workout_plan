@@ -6,5 +6,6 @@ class Workout < ApplicationRecord
 
   validates_presence_of :date
 
-  accepts_nested_attributes_for :cardio_exercises
+  accepts_nested_attributes_for :cardio_exercises, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :strength_exercises, reject_if: :all_blank, allow_destroy: true
 end

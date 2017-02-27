@@ -7,20 +7,20 @@ class WorkoutsController < ApplicationController
 
   def new
     @workout = Workout.new
-    2.times { @workout.cardio_exercises.build }
-    8.times do
-      exercise = @workout.strength_exercises.build
-      5.times { exercise.sets.build }
-    end
   end
 
   def create
-    @workout = Workout.new(params.require(:workout)
-                           .permit(:date,
-                                   cardio_exercises: [:exercise, :minutes],
-                                   strength_exercises: { exercise: [], sets: [:weight, :reps] }))
+    @workout = Workout.new(workout_params)
     @workout.user = current_user
     @workout.save!
     redirect_to :root
+  end
+
+  def workout_params
+    params.require(:workout)
+          .permit(:date,
+                  cardio_exercises_attributes: [:id, :exercise, :minutes, :_destroy],
+                  strength_exercises_attributes:
+                    [:id, :exercise, :_destroy, sets_attributes: [:id, :_destroy, :weight, :reps]])
   end
 end
