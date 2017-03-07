@@ -2,6 +2,7 @@
 <%= semantic_form_for @workout do |f| %>
   <%= f.inputs do %>
     <%= f.input :date %>
+    <%= f.input :duration %>
     <div id='cardio_exercises'>
       <%= f.semantic_fields_for :cardio_exercises do |cardio_exercise| %>
         <%= render 'cardio_exercise_fields', f: cardio_exercise %>

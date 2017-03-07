@@ -1,5 +1,6 @@
 <%= link_to 'New workout', new_workouts_path %>
 <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+<div><h4>Total XP: <%= @workouts.sum(&:duration) %>/1000</h4></div>
 <table>
   <tr>
     <th>Date</th>
