@@ -1,18 +1,38 @@
-<%= link_to 'New workout', new_workouts_path %>
-<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-<div><h4>Total XP: <%= @workouts.sum(&:duration) %>/1000</h4></div>
-<table>
-  <tr>
-    <th>Date</th>
-    <th>Cardio</th>
-    <th>Strength</th>
-  </tr>
+<% xp_percent = @workouts.sum(&:duration)*100/1000.0 %>
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="<%=xp_percent%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=xp_percent%>%; min-width: 2em;">
+    <%= "#{xp_percent.round}%" %>
+  </div>
+</div>
 
+<div><h4>XP: <%= @workouts.sum(&:duration) %>/1000</h4></div>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <% @workouts.each do |workout| %>
-  <tr>
-    <th><%= workout.date %></th>
-    <th><%= workout.cardio_exercises.to_a.map(&:to_s).join(' ') %></th>
-    <th><%= workout.strength_exercises.to_a.map(&:to_s).join(' ') %></th>
-  </tr>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading_<%= workout.id %>">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= workout.id %>" aria-expanded="false" aria-controls="collapse_<%= workout.id %>">
+            <%= workout.date %> Workout (<%= workout.duration %> minutes)
+          </a>
+        </h4>
+      </div>
+      <div id="collapse_<%= workout.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_<%= workout.id %>">
+        <div class="panel-body">
+          <% if workout.strength_exercises.exists? %>
+            <h4>Strength</h4>
+            <% workout.strength_exercises.each do |exercise| %>
+              <%= exercise.to_s %><br>
+            <% end %>
+          <% end %>
+          <% if workout.cardio_exercises.exists? %>
+            <h4>Cardio</h4>
+            <% workout.cardio_exercises.each do |exercise| %>
+              <%= exercise.to_s %><br>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
 </table>
