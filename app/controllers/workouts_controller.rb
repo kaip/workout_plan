@@ -2,7 +2,7 @@
 # Handles requests around workouts
 class WorkoutsController < ApplicationController
   def index
-    @workouts = Workout.where(user_id: current_user.id).all
+    @workouts = workouts
   end
 
   def new
@@ -10,10 +10,22 @@ class WorkoutsController < ApplicationController
   end
 
   def create
+    original_level = workouts.level
     @workout = Workout.new(workout_params)
     @workout.user = current_user
     @workout.save!
+    if original_level != workouts.level
+      @workouts = workouts
+      @success = workouts.level.description
+      return render :index
+    end
     redirect_to :root
+  end
+
+  private
+
+  def workouts
+    WorkoutsPresenter.new(Workout.where(user_id: current_user.id).all)
   end
 
   def workout_params
