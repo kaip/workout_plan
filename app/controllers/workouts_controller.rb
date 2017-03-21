@@ -10,13 +10,13 @@ class WorkoutsController < ApplicationController
   end
 
   def create
-    original_level = workouts.level
+    original_xp = workouts.total_xp
     @workout = Workout.new(workout_params)
     @workout.user = current_user
     @workout.save!
-    if original_level != workouts.level
+    @success = $levels.threshold_crossed(original_xp, workouts.total_xp)
+    if @success.present?
       @workouts = workouts
-      @success = workouts.level.description
       return render :index
     end
     redirect_to :root

@@ -3,14 +3,14 @@
     <%= @success %>
   </div>
 <% end %>
-<% xp_percent = @workouts.xp*100/@workouts.level.xp_required %>
+<% xp_percent = @workouts.xp*100/@workouts.next_level.xp_required %>
 <div class="progress">
   <div class="progress-bar" role="progressbar" aria-valuenow="<%=xp_percent%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=xp_percent%>%; min-width: 2em;">
     <%= "#{xp_percent.round}%" %>
   </div>
 </div>
 <div><h4>Level: <%= @workouts.level.number %></h4></div>
-<div><h4>XP: <%= @workouts.xp %>/<%= @workouts.level.xp_required %></h4></div>
+<div><h4>XP: <%= @workouts.xp %>/<%= @workouts.next_level.xp_required %></h4></div>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <% @workouts.each do |workout| %>

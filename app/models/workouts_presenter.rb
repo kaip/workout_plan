@@ -5,15 +5,19 @@ class WorkoutsPresenter
 
   delegate :each, to: :@workouts
 
-  def xp
+  def total_xp
     @workouts.sum(:duration)
   end
 
+  def xp
+    $levels.level_xp(total_xp)
+  end
+
+  def next_level
+    $levels.next_level(total_xp)
+  end
+
   def level
-    remaining_xp = xp
-    $levels.each do |level|
-      remaining_xp -= level.xp_required
-      break level if remaining_xp < 0
-    end
+    $levels.level(total_xp)
   end
 end

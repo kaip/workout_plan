@@ -1,8 +1,15 @@
 -
   description: "You've entered training camp!"
   number: 1
-  xp_required: 1000
+  xp_required: 0
+  breaks:
+    -
+      xp_required: 200
+      content: 'You are getting tough'
+    -
+      xp_required: 400
+      content: 'You are getting ugly'
 -
   description: "You've entered the ring of sacrifice!"
   number: 2
-  xp_required: 3000
+  xp_required: 1000
