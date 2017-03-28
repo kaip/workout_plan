@@ -3,6 +3,7 @@
 class WorkoutsController < ApplicationController
   def index
     @workouts = workouts
+    @success = $levels.level(0).description if current_user.created_at.today?
   end
 
   def new
