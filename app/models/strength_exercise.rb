@@ -6,6 +6,10 @@ class StrengthExercise < ApplicationRecord
 
   accepts_nested_attributes_for :sets, reject_if: :all_blank, allow_destroy: true
 
+  def self.exercise_names
+    YAML.safe_load(File.open('config/strength_exercises.yml')).sort
+  end
+
   def to_s
     "#{exercise}: #{sets.map(&:to_s).join(' ')}"
   end

@@ -1,6 +1,6 @@
 <div class='nested-fields'>
   <%= f.inputs do %>
-    <%= f.input :exercise %>
+    <%= f.input :exercise, as: :select, collection: CardioExercise.exercise_names %>
     <%= f.input :minutes %>
     <%= link_to_remove_association 'remove cardio exercise', f %>
   <% end %>

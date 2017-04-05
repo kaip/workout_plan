@@ -1,6 +1,6 @@
 <div class='nested-fields'>
   <%= f.inputs do %>
-    <%= f.input :exercise %>
+    <%= f.input :exercise, as: :select, collection: StrengthExercise.exercise_names %>
     <div class='sets'>
       <%= f.semantic_fields_for :sets do |set| %>
         <%= render 'set_fields', f: set %>
