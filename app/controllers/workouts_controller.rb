@@ -23,6 +23,23 @@ class WorkoutsController < ApplicationController
     redirect_to :root
   end
 
+  def edit
+    @workout = Workout.find(params[:id])
+    render :new
+  end
+
+  def update
+    original_xp = workouts.total_xp
+    @workout = Workout.find(params[:id])
+    @workout.update_attributes!(workout_params)
+    @success = $levels.threshold_crossed(original_xp, workouts.total_xp)
+    if @success.present?
+      @workouts = workouts
+      return render :index
+    end
+    redirect_to :root
+  end
+
   private
 
   def workouts
