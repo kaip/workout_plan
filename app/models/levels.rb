@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Levels
   def initialize(config)
     @config = config
@@ -44,7 +45,6 @@ class Levels
     end
   end
 
-
   def levels_advanced(original_xp, new_xp)
     levels.select do |level|
       original_xp < level.xp_required && new_xp >= level.xp_required
@@ -56,5 +56,4 @@ class Levels
       original_xp <= content_hash['xp_required'] && new_xp >= content_hash['xp_required']
     end
   end
-
 end

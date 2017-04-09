@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 # Handles requests around workouts
 class WorkoutsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @workouts = workouts
     @success = $levels.level(0).description if current_user.created_at.today?
